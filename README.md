@@ -5,3 +5,19 @@ ALM includes 3 games:
 <li> PacMan </li>
 <li> PacGHOST </li>
 
+Feature list
+  <p style='color:red'>
+  Chess Board
+  Pawn 
+  Bishop
+  Queen
+  King
+  Rook
+  Knight
+  
+
+
+
+
+
+</p>
