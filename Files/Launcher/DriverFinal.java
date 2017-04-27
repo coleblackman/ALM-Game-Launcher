@@ -1,8 +1,8 @@
-//John Link 4/24/17
+//John Link Cole Blackman 4/24/17
    import javax.swing.JFrame;
    public class DriverFinal
    {
-      public static void main(String[] args)
+      public static void main(String[] args) //standard driver
       {
          JFrame frame = new JFrame("Team ALM Launcher");
          frame.setSize(960, 540);
