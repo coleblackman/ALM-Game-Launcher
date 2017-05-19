@@ -8,25 +8,28 @@
 	
    public class GUIPanel extends JPanel implements ActionListener
    {
-	   
-	private static final long serialVersionUID = -749283768975179723L;
 
 	ImageIcon chess = new ImageIcon("chessboard.png");
-		public static boolean isWhiteTurn = true;
+
 	   public static JButton[][] b1 = new JButton[10][10];
+	   public static boolean isWhiteTurn = true;
 	   Color brown = new Color(181, 136, 99);
 	   Color beige = new Color(240, 217, 181);
+	   private Timer t;
+	   public boolean hasBeenClicked = false;
+	   public int fposx, fposy, sposx, sposy;
       public GUIPanel()
       {
-
-    	setLayout(new GridLayout(10, 10));
+    	 
+    	 setLayout(new GridLayout(10, 10));
     	  Font f = new Font("Arial", Font.PLAIN, 30);
     	  
     	  int numberInt = 8;
     	  char [] letterChar = new char[]{' ', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
     	 
     	  for(int o = 1; o < 10; o++) //nested for loops to populate the array with x and y values 1,1 to 8,8
-    	  { //o = y p = x
+    	  { 
+    		  
 	    	  for(int p = 1; p < 10; p++)
 	    	  {
 	    		
@@ -64,7 +67,7 @@
 	    	  }
 	    	 
     	 }
-    	System.out.println(b1[5][2].getLocation());
+    	  
     	
     		 
     	 SetChessBoard();
@@ -80,11 +83,13 @@
     	  { 
 	    	  for(int p = 1; p < 10; p++)
 	    	  {
+	    		  if(p > 1 && o != 9)
+	    			  b1[o][p].setFont(new Font("Noto", Font.PLAIN, 70));
 	    		  //BLACK
 	    		  //Pawn
 	    		  if(o == 2 && p != 1)
 	    		  {
-	    				  b1[o][p].setFont(new Font("Noto", Font.PLAIN, 50));
+	    				  
 	    				  
 	    				  b1[o][p].setText("\u265F");
 	    		  }
@@ -93,7 +98,7 @@
 	    		  if(o == 7 && p != 1)
 	    		  {
 	    			 
-	    				  b1[o][p].setFont(new Font("Noto", Font.PLAIN, 50));
+	    				
 	    				  b1[o][p].setForeground(Color.WHITE);
 	    				  b1[o][p].setText("\u2659");
 	   
@@ -102,7 +107,7 @@
 	    		  //Black
 	    		  if((o == 1 && p == 2) || (o == 1 && p == 9))
 	    		  {
-	    			  b1[o][p].setFont(new Font("Noto", Font.PLAIN, 50));
+	    			
     				  b1[o][p].setText("\u265C");
 	    			  
 	    		  }
@@ -110,7 +115,7 @@
 	    		  //White
 	    		  if((o == 8 && p == 2) || (o == 8 && p == 9))
 	    		  {
-	    			  b1[o][p].setFont(new Font("Noto", Font.PLAIN, 50));
+	    			
 	    			  b1[o][p].setForeground(Color.WHITE);
     				  b1[o][p].setText("\u2656");
 	    			  
@@ -119,7 +124,7 @@
 	    		  //Black
 	    		  if((o == 1 && p == 3) || (o == 1 && p == 8))
 	    		  {
-	    			  b1[o][p].setFont(new Font("Noto", Font.PLAIN, 50));
+	    			 
     				  b1[o][p].setText("\u265E");
 	    			  
 	    		  }
@@ -127,7 +132,7 @@
 	    		  //White
 	    		  if((o == 8 && p == 3) || (o == 8 && p == 8))
 	    		  {
-	    			  b1[o][p].setFont(new Font("Noto", Font.PLAIN, 50));
+	    			
 	    			  b1[o][p].setForeground(Color.WHITE);
     				  b1[o][p].setText("\u2658");
 	    			  
@@ -136,7 +141,7 @@
 	    		  //Black
 	    		  if((o == 1 && p == 4) || (o == 1 && p == 7))
 	    		  {
-	    			  b1[o][p].setFont(new Font("Noto", Font.PLAIN, 50));
+	    			 
     				  b1[o][p].setText("\u265D");
 	    			  
 	    		  }
@@ -144,7 +149,7 @@
 	    		  //White
 	    		  if((o == 8 && p == 4) || (o == 8 && p == 7))
 	    		  {
-	    			  b1[o][p].setFont(new Font("Noto", Font.PLAIN, 50));
+	    			 
 	    			  b1[o][p].setForeground(Color.WHITE);
     				  b1[o][p].setText("\u2657");
 	    			  
@@ -153,7 +158,7 @@
 	    		  //White
 	    		  if(o == 8 && p == 6)
 	    		  {
-	    			  b1[o][p].setFont(new Font("Noto", Font.PLAIN, 50));
+	    			
 	    			  b1[o][p].setForeground(Color.WHITE);
     				  b1[o][p].setText("\u2654");
 	    			  
@@ -162,14 +167,14 @@
 	    		  //Black
 	    		  if(o == 1 && p == 5)
 	    		  {
-	    			  b1[o][p].setFont(new Font("Noto", Font.PLAIN, 50));
+	    			 
     				  b1[o][p].setText("\u265A");  
 	    		  }
 	    		  //Queen 
 	    		  //White
 	    		  if(o == 8 && p == 5)
 	    		  {
-	    			  b1[o][p].setFont(new Font("Noto", Font.PLAIN, 50));
+	    			  
 	    			  b1[o][p].setForeground(Color.WHITE);
     				  b1[o][p].setText("\u2655");
 	    			  
@@ -178,7 +183,7 @@
 	    		  //Black
 	    		  if(o == 1 && p == 6)
 	    		  {
-	    			  b1[o][p].setFont(new Font("Noto", Font.PLAIN, 50));
+	    			  
     				  b1[o][p].setText("\u265B");  
 	    		  }
 	    	  }
@@ -193,19 +198,37 @@
             System.exit(0);
          }
       }
+     
       public void actionPerformed(ActionEvent e) {
     	  //black pawn
-    	  
-    	  
-    	  System.out.println(((JButton) e.getSource()).getText()+" Click");
-       // System.out.println("  " + );
-        	  
+    	  if(hasBeenClicked)
+    	  {
+    		  
+    			  sposx = (((JButton) e.getSource()).getLocationOnScreen().x)/142;
+    			  sposy = (((JButton) e.getSource()).getLocationOnScreen().y)/102 + 1;
+    			  System.out.println("" + fposx + fposy + sposx + sposy);
+    		  	if(Pawn.isValidMoveBlack(fposx, fposy, sposx, sposy))
+    		  	{
+    		  		System.out.println("inside" + fposx + fposy + sposx + sposy);
+    		  		System.out.println("labeljj" + ((JButton) e.getSource()).getText());
+    		  	// if(((JButton) e.getSource()).getText() == "\u265F")
+    		  		 	Piece.move(fposy, fposx, sposx, sposy);
+    		  		
+    		  	}
+	    	  
+    		  hasBeenClicked = false;
           }
-      
-      public void paintComponent(Graphics g)
-      {
-       //  g.setColor(Color.BLACK);
-      //  g.drawImage(chess.getImage(), 0, 0, 1280, 1024, null);
+    	  else
+    	  {
+    		 
+    		  hasBeenClicked = true;
+    		  fposx = (((JButton) e.getSource()).getLocationOnScreen().x)/142 + 1;
+    		  fposy = (((JButton) e.getSource()).getLocationOnScreen().y)/102 + 1;
+    		  System.out.println(""+fposx + fposy);
+    		  
+     	  }
+    		  
+    		  
       }
-   	
-   }
+    	 
+}
