@@ -6,13 +6,16 @@
    import java.io.*;
    
 	
-   public class GUIPanel extends JPanel
+   public class GUIPanel extends JPanel implements ActionListener
    {
-	   ImageIcon chess = new ImageIcon("chessboard.png");
+	   
+	private static final long serialVersionUID = -749283768975179723L;
 
-	   JButton[][] b1 = new JButton[10][10];
-	   Color brown = new Color(171,104,88);
-	   Color beige = new Color(243,205,130);
+	ImageIcon chess = new ImageIcon("chessboard.png");
+		public static boolean isWhiteTurn = true;
+	   public static JButton[][] b1 = new JButton[10][10];
+	   Color brown = new Color(181, 136, 99);
+	   Color beige = new Color(240, 217, 181);
       public GUIPanel()
       {
 
@@ -31,6 +34,7 @@
 		    			b1[o][p].setBorderPainted(true);
 		    			b1[o][p].setFocusPainted(false);
 		    			
+		    			this.b1[o][p].addActionListener(this);
 		    		 	add(b1[o][p]);
 		    		 	if((p + o) % 2 == 0)
 		    		 	{
@@ -60,15 +64,16 @@
 	    	  }
 	    	 
     	 }
-    	 
-       	  
+    	System.out.println(b1[5][2].getLocation());
+    	
     		 
     	 SetChessBoard();
     	  
     	  b1[9][1].addActionListener(new Listener());
     	  b1[9][1].setText("EXIT");
-    	  b1[9][1].setBackground(Color.CYAN);
+    	  b1[9][1].setBackground(beige);
       }
+      
       public void SetChessBoard()
  	 {
  		 for(int o = 1; o < 10; o++) 
@@ -89,7 +94,7 @@
 	    		  {
 	    			 
 	    				  b1[o][p].setFont(new Font("Noto", Font.PLAIN, 50));
-	    				  b1[o][p].setForeground(Color.LIGHT_GRAY);
+	    				  b1[o][p].setForeground(Color.WHITE);
 	    				  b1[o][p].setText("\u2659");
 	   
 	    		  }
@@ -106,7 +111,7 @@
 	    		  if((o == 8 && p == 2) || (o == 8 && p == 9))
 	    		  {
 	    			  b1[o][p].setFont(new Font("Noto", Font.PLAIN, 50));
-	    			  b1[o][p].setForeground(Color.LIGHT_GRAY);
+	    			  b1[o][p].setForeground(Color.WHITE);
     				  b1[o][p].setText("\u2656");
 	    			  
 	    		  }
@@ -123,7 +128,7 @@
 	    		  if((o == 8 && p == 3) || (o == 8 && p == 8))
 	    		  {
 	    			  b1[o][p].setFont(new Font("Noto", Font.PLAIN, 50));
-	    			  b1[o][p].setForeground(Color.LIGHT_GRAY);
+	    			  b1[o][p].setForeground(Color.WHITE);
     				  b1[o][p].setText("\u2658");
 	    			  
 	    		  }
@@ -140,7 +145,7 @@
 	    		  if((o == 8 && p == 4) || (o == 8 && p == 7))
 	    		  {
 	    			  b1[o][p].setFont(new Font("Noto", Font.PLAIN, 50));
-	    			  b1[o][p].setForeground(Color.LIGHT_GRAY);
+	    			  b1[o][p].setForeground(Color.WHITE);
     				  b1[o][p].setText("\u2657");
 	    			  
 	    		  }
@@ -149,7 +154,7 @@
 	    		  if(o == 8 && p == 6)
 	    		  {
 	    			  b1[o][p].setFont(new Font("Noto", Font.PLAIN, 50));
-	    			  b1[o][p].setForeground(Color.LIGHT_GRAY);
+	    			  b1[o][p].setForeground(Color.WHITE);
     				  b1[o][p].setText("\u2654");
 	    			  
 	    		  }
@@ -165,7 +170,7 @@
 	    		  if(o == 8 && p == 5)
 	    		  {
 	    			  b1[o][p].setFont(new Font("Noto", Font.PLAIN, 50));
-	    			  b1[o][p].setForeground(Color.LIGHT_GRAY);
+	    			  b1[o][p].setForeground(Color.WHITE);
     				  b1[o][p].setText("\u2655");
 	    			  
 	    		  }
@@ -184,9 +189,19 @@
       {
          public void actionPerformed(ActionEvent e)
          {
+        	 
             System.exit(0);
          }
       }
+      public void actionPerformed(ActionEvent e) {
+    	  //black pawn
+    	  
+    	  
+    	  System.out.println(((JButton) e.getSource()).getText()+" Click");
+       // System.out.println("  " + );
+        	  
+          }
+      
       public void paintComponent(Graphics g)
       {
        //  g.setColor(Color.BLACK);
