@@ -1,5 +1,4 @@
 //John Link Cole Blackman 5/10/17
-
 public class Bishop extends Piece 
 {
 	  public static boolean isValidMoveBlack(int fx, int fy, int sx, int sy)

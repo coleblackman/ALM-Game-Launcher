@@ -1,5 +1,3 @@
-//John Link Cole Blackman 5/10/17
-
 public class Queen extends Piece 
 {
 	  public static boolean isValidMoveBlack(int fx, int fy, int sx, int sy)
@@ -8,8 +6,7 @@ public class Queen extends Piece
 		  {
 			  if(GUIPanel.b1[sy][sx].getText().trim().isEmpty())
 			  {
-				  if(GUIPanel.isWhiteTurn == false)
-				  {
+				 
 				  return true;
 				  }
 				  else
@@ -22,11 +19,7 @@ public class Queen extends Piece
 				  return false;
 			  }
 		  }
-		  else
-		  {
-			  return false;
-		  }
-	  }
+	
 		 public static boolean isValidMoveWhite(int fx2, int fy2, int sx2, int sy2)
 		  {
 			  if(GUIPanel.b1[fy2][fx2+1].getText().trim().isEmpty() && GUIPanel.b1[fy2][fx2-1].getText().trim().isEmpty() && GUIPanel.b1[fy2+1][fx2].getText().trim().isEmpty() && GUIPanel.b1[fy2-1][fx2].getText().trim().isEmpty())//if the move is valid for a black pawn (it is empty)

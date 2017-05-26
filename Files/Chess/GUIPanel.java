@@ -1,7 +1,10 @@
 //John Link Cole Blackman 5/10/17
 
    import javax.swing.*;
-   import java.awt.*;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
+
+import java.awt.*;
    import java.awt.event.*;
    import java.io.*;
    
@@ -17,6 +20,7 @@
 	   Color beige = new Color(240, 217, 181);
 	   private Timer t;
 	   public boolean hasBeenClicked = false;
+	   
 	   public int fposx, fposy, sposx, sposy;
       public GUIPanel()
       {
@@ -204,31 +208,81 @@
     	  if(hasBeenClicked)
     	  {
     		  
-    			  sposx = (((JButton) e.getSource()).getLocationOnScreen().x)/142;
+    			  sposx = (((JButton) e.getSource()).getLocationOnScreen().x)/142 + 1;
     			  sposy = (((JButton) e.getSource()).getLocationOnScreen().y)/102 + 1;
-    			  System.out.println("" + fposx + fposy + sposx + sposy);
+    			  
     		  	if(Pawn.isValidMoveBlack(fposx, fposy, sposx, sposy))
     		  	{
-    		  		System.out.println("inside" + fposx + fposy + sposx + sposy);
-    		  		System.out.println("labeljj" + ((JButton) e.getSource()).getText());
-    		  	// if(((JButton) e.getSource()).getText() == "\u265F")
-    		  		 	Piece.move(fposy, fposx, sposx, sposy);
     		  		
+    		  		Pawn.bmove(fposx, fposy, sposx, sposy);
+    		  		//isWhiteTurn = true;
+    		  		hasBeenClicked = false;
     		  	}
-	    	  
-    		  hasBeenClicked = false;
+    		  	else if(Pawn.isValidMoveWhite(fposx, fposy, sposx, sposy))
+    		  	{
+    		  		
+    		  		Pawn.wmove(fposx, fposy, sposx, sposy);
+    		  		//isWhiteTurn = false;
+    		  		hasBeenClicked = false;
+    		  	}
+    		  	
+    		  	else if(Rook.isValidMoveBlack(fposx, fposy, sposx, sposy))
+    		  	{
+    		  		
+    		  		Rook.bmove(fposx, fposy, sposx, sposy);
+    		  		isWhiteTurn = true;
+    		  		hasBeenClicked = false;
+    		  	}
+    		  	else if(Rook.isValidMoveWhite(fposx, fposy, sposx, sposy))
+    		  	{
+    		  		
+    		  		Rook.wmove(fposx, fposy, sposx, sposy);
+    		  		isWhiteTurn = false;
+    		  		hasBeenClicked = false;
+    		  		System.out.println("TRUE");
+    		  	}
+    		  	else if(Knight.isValidMoveBlack(fposx, fposy, sposx, sposy))
+     		  	{
+     		  		Knight.bmove(fposx, fposy, sposx, sposy);
+     		  		isWhiteTurn = true;
+     		  		hasBeenClicked = false;
+     		  	}
+     		  	else if(Knight.isValidMoveWhite(fposx, fposy, sposx, sposy))
+     		  	{
+     		  		
+     		  		Knight.wmove(fposx, fposy, sposx, sposy);
+     		  		isWhiteTurn = false;
+     		  		hasBeenClicked = false;
+     		  		System.out.println("TRUE");
+     		  	}
+    		  	
+    		  	 
+    		  	else
+    		  	{
+    		  		hasBeenClicked = false;
+    		  	}
+    		  
+    		  
+    		  
           }
     	  else
     	  {
     		 
-    		  hasBeenClicked = true;
+    			  
     		  fposx = (((JButton) e.getSource()).getLocationOnScreen().x)/142 + 1;
     		  fposy = (((JButton) e.getSource()).getLocationOnScreen().y)/102 + 1;
     		  System.out.println(""+fposx + fposy);
+    		  sposx = 0;
+    		  sposy = 0;
+    		  if(((JButton) e.getSource()).getText() != "")
+    		  {
+    			  hasBeenClicked = true;
+    			  
+    		  }
     		  
      	  }
     		  
-    		  
+    	  //Knight.wmove(3, 7, 5, 5);	  
       }
     	 
 }
