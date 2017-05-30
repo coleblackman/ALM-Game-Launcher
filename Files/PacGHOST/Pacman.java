@@ -1,6 +1,6 @@
 import java.awt.*;
-import java.awt.Image.*;
-import javax.swing.*;
+
+//import javax.swing.*;
 public class Pacman extends Polkadot
 {
 

@@ -1,0 +1,38 @@
+//DOWN
+          if(e.getKeyCode() == KeyEvent.VK_S && gt.getY() < 980 && !isColliding((int)(gt.getX()+d), (int)(gt.getY()+d))){
+        	  if(!isColliding((int)(gt.getX()+3), (int)(gt.getY()+10))      &&   !isColliding((int)(gt.getX()-10), (int)(gt.getY()+10))     &&   !isColliding((int)(gt.getX()+16), (int)(pm.getY()+10))   )
+             gt.setY(gt.getY()+speed);
+             
+          }
+          if(e.getKeyCode()==KeyEvent.VK_S && gt.getX() < 985 && isColliding((int)(gt.getX())+d, (int)(gt.getY())+d)){
+             gt.setY(gt.getY()-speed);
+             
+          }
+          //UP
+          if(e.getKeyCode()==KeyEvent.VK_W && gt.getY() > 15 && !isColliding((int)(gt.getX())-u, (int)(gt.getY())-u)){
+             gt.setY(gt.getY()-speed);
+             
+          }
+          if(e.getKeyCode()==KeyEvent.VK_W && gt.getX() > 15 && isColliding((int)(gt.getX())-u, (int)(gt.getY())-u)){
+             gt.setY(gt.getY()+speed);
+             
+          }
+          //RIGHT
+          if(e.getKeyCode()==KeyEvent.VK_D && gt.getX() < 985 && !isColliding((int)(gt.getX())+r, (int)(gt.getY())+r)){
+             gt.setX(gt.getX()+speed);
+             
+          }
+          if(e.getKeyCode()==KeyEvent.VK_D && gt.getX() < 985 && isColliding((int)(gt.getX())+r, (int)(gt.getY())+r)) {
+             gt.setX(gt.getX()-speed);
+             
+          }
+          //LEFT
+          if(e.getKeyCode()==KeyEvent.VK_A && gt.getX() > 15 && !isColliding((int)(gt.getX())-l, (int)(gt.getY())-l)){
+             gt.setX(gt.getX()-speed);
+             
+          }
+          if(e.getKeyCode()==KeyEvent.VK_A && gt.getX() > 15 && isColliding((int)(gt.getX())-l, (int)(gt.getY())-l)) {
+             gt.setX(gt.getX()+speed);
+             
+          
+          }

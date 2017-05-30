@@ -80,16 +80,25 @@ import java.awt.image.BufferedImage;
       {
     	  
     	  
-    	  	int X = (int)(Math.random()* (900-myDiameter) + myRadius);
-      	 	int Y = (int)(Math.random()* (900-myDiameter) + myRadius);
-      	 	while(isColliding(X, Y))
-      	 	{
-      	 		X = (int)(Math.random()* (900-myDiameter) + myRadius);
-      	 		Y = (int)(Math.random()* (900-myDiameter) + myRadius);
+    	  	int a = (int)(Math.random()* 870 + 100);
+      	 	int b = (int)(Math.random()* 870 + 100);
+      	 	myImage =  new BufferedImage(900, 900, BufferedImage.TYPE_INT_RGB);
+      	 	myBuffer = myImage.getGraphics();
+      	 	
+      	 		while(myImage.getRGB(a, b) == -16776961)
+      	 		{
+      	 			
+      	 			b = (int)(Math.random()* 870 +100);
+      	 			a = (int)(Math.random()* 870 + 100);
+      	 			
+      	 		}
+      	 		
+      	 		myX = a;
+      	 		myY = b;
+      	 		
       	 	}
-      	 	myX = X;
-      	 	myY = Y;
-      }
+      	 	
+      
       public void draw(Graphics myBuffer) 
       {
          myBuffer.setColor(myColor);

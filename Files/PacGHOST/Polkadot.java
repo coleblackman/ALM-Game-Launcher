@@ -75,7 +75,7 @@
     //	 instance methods
       public void jump(int rightEdge, int bottomEdge)
       {
-         // moves location to random (x, y) within the edges
+        
          myX = (Math.random()* (rightEdge-myDiameter) + myRadius);
          myY = (Math.random()* (bottomEdge-myDiameter) + myRadius);
       }
