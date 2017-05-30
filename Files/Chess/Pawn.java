@@ -1,53 +1,76 @@
+
 //John Link Cole Blackman 5/10/17
 import java.awt.Color;
 
-import javax.swing.JComponent;
 public class Pawn extends Piece {
-	  public static boolean isValidMoveBlack(int fy, int fx, int sx, int sy)
-	  {
-		  if((fy+1 == sy) || (sy == 4))//if the move is valid for a black pawn (it is a one move)
-		  {
-			  if(GUIPanel.b1[fx][fy].getText() == "\u265F" && ((sx == fx) && (GUIPanel.b1[sx][sy].getText() == "" )) 
-					  || (((fx-1 == sx) || fx +1 == sx)
-							  && (fy + 1 == sy)
-							  && (GUIPanel.b1[sx][sy].getText() != "")))//&& GUIPanel.isWhiteTurn != true
-				  return true;
-			  else
-				  return false;
-		  }
-		  else
-			  return false;
-	  }
-	  public static boolean isValidMoveWhite(int fx, int fy, int sx, int sy)
-	  {
-		 
-		  
-		  if((fy-1 == sy) || (sy == 5))//if the move is valid for a black pawn (it is a one move)
-		  {
-			  if((GUIPanel.b1[fy][fx].getText() == "\u2659") && ((sx == fx) && (GUIPanel.b1[sy][sx].getText() == "" )) 
-					  || (((fx+1 == sx) || fx -1 == sx) 
-							  && (fy-1 == sy) 
-							  && (GUIPanel.b1[sy][sx].getText() != "")))//&& GUIPanel.isWhiteTurn 
-				return true;
-			  else
-				  return false;
-		  }
-		  else
-			  return false;
-	  }
-	  public static void bmove(int fx, int fy, int sx, int sy)
+	public static boolean isValidMoveBlack(int fy, int fx, int sx, int sy) {
+		if (GUIPanel.b1[fy][fx].getText() != "\u265F") 
+			return false;
+		
+		if (sy <= fy) // Pawns can only move forwards and cannot stay still as a valid move
+			return false;
+
+		if ((fy + 1 == sy) || (sy == 4))
+
 		{
-			
-			GUIPanel.b1[sy][sx].setText("\u265F");
+			if (((sx == fx) && (GUIPanel.b1[sy][sx].getText() == ""))
+					|| (((fx + 1 == sx) || fx - 1 == sx) && (fy + 1 == sy) && (GUIPanel.b1[sy][sx].getText() != "")))
+
+				return true;
+			else
+				return false;
+		} else
+			return false;
+
+	}
+
+	public static boolean isValidMoveWhite(int fx, int fy, int sx, int sy) {
+		for (int i = 0; i < 6; i++) { //for loop to iterate through all possible white pieces and makes sure that the second position is not a white piece.
+			if (GUIPanel.b1[sy][sx].getText().equals(Character.toString(GUIPanel.AllWhitePieces[i])))
+				return false;
+		}
+		if (GUIPanel.b1[fy][fx].getText() != "\u2659") {
+			return false;
+		}
+		if (sy >= fy) // Pawns can only move forwards
+			return false;
+
+		if ((fy - 1 == sy) || (sy == 5))
+
+		{
+			if (((sx == fx) && (GUIPanel.b1[sy][sx].getText() == ""))
+					|| (((fx + 1 == sx) || fx - 1 == sx) && (fy - 1 == sy) && (GUIPanel.b1[sy][sx].getText() != "")))
+
+				return true;
+			else
+				return false;
+		} else
+			return false;
+
+	}
+
+	public static void bmove(int fx, int fy, int sx, int sy) {
+
+		GUIPanel.b1[sy][sx].setText("\u265F");
+		GUIPanel.b1[fy][fx].setText("");
+
+	}
+
+	public static void wmove(int fx, int fy, int sx, int sy) {
+
+		if (sy == 1) {
+			GUIPanel.b1[sy][sx].setText("\u2655");
+			GUIPanel.b1[sy][sx].setForeground(Color.WHITE);
 			GUIPanel.b1[fy][fx].setText("");
 			
-		}
-	  public static void wmove(int fx, int fy, int sx, int sy)
-		{
-			
+		} else {
+
 			GUIPanel.b1[sy][sx].setText("\u2659");
 			GUIPanel.b1[sy][sx].setForeground(Color.WHITE);
 			GUIPanel.b1[fy][fx].setText("");
 			
+
 		}
+
+	}
 }
