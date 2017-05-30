@@ -24,7 +24,7 @@ public class Rook extends Piece
 						  	}
 						  else {
 							  //left
-							  for(int u = fx -1; u >= sx; u= u-1)
+							  for(int u = fx -1; u >= sx; u = u-1)
 							  {
 								  if(GUIPanel.b1[fy][u].getText() != "")
 									  return false;
@@ -61,7 +61,13 @@ public class Rook extends Piece
 	      }
 		 public static boolean isValidMoveWhite(int fx, int fy, int sx, int sy)
 		  {
-			 
+			 for (int i = 0; i < 6; i++) { //for loop to iterate through all possible white pieces and makes sure that the second position is not a white piece.
+					System.out.println(GUIPanel.b1[sy][sx].getText() + " " + Character.toString(GUIPanel.AllWhitePieces[i]));
+					if (GUIPanel.b1[sy][sx].getText().equals(Character.toString(GUIPanel.AllWhitePieces[i])))
+						return false;
+				}
+			 if(fx == sx && fy == sy)
+				 return false;
 			 if(GUIPanel.b1[fy][fx].getText() != "\u2656")
 			  {
 		
@@ -95,8 +101,9 @@ public class Rook extends Piece
 							  {
 								  for(int y = fy + 1; y <= sy; y++)
 								  {
-									  
-									  if(GUIPanel.b1[y][fx].getText() != "")
+									  if(y == sy)
+										  return true;
+									  if(GUIPanel.b1[y-1][fx].getText() != "")
 										  return false;
 									  
 								  }
