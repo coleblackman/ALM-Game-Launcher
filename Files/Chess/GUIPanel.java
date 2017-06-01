@@ -191,7 +191,7 @@ public class GUIPanel extends JPanel implements ActionListener {
 				// isWhiteTurn = true;
 				hasBeenClicked = false;
 			} else if (Pawn.isValidMoveWhite(fposx, fposy, sposx, sposy)) {
-
+				System.out.println("wmove");
 				Pawn.wmove(fposx, fposy, sposx, sposy);
 				
 				hasBeenClicked = false;
