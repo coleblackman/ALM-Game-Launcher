@@ -132,12 +132,13 @@ public class Rook extends Piece
 			{
 				
 				GUIPanel.b1[sy][sx].setText("\u265C");
+				
 				GUIPanel.b1[fy][fx].setText("");
 				
 			}
 		  public static void wmove(int fx, int fy, int sx, int sy)
 			{
-				
+			  System.out.println("wmove");
 				GUIPanel.b1[sy][sx].setText("\u2656");
 				GUIPanel.b1[sy][sx].setForeground(Color.WHITE);
 				GUIPanel.b1[fy][fx].setText("");
