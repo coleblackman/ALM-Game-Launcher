@@ -1,4 +1,5 @@
 import java.awt.Color;//Imports
+import java.awt.Desktop;
 import java.awt.Dimension;//Imports
 import java.awt.Font;//Imports
 import java.awt.Graphics;//Imports
@@ -7,6 +8,9 @@ import java.awt.event.ActionListener;//Imports
 import java.awt.event.KeyAdapter;//Imports
 import java.awt.event.KeyEvent;//Imports
 import java.awt.image.BufferedImage;//Imports
+import java.io.File;
+import java.io.IOException;
+
 import javax.swing.JButton;//Imports
 import javax.swing.JLabel;//Imports
 import javax.swing.JPanel;//Imports
@@ -19,16 +23,15 @@ public class PanelPac extends JPanel {
 	private static final int FRAME = 1000;
 	private static final Color BACKGROUND = new Color(0, 0, 0);
 
-	private BufferedImage myImage; // creates and image over the background and
-									// allows for RGB sampling
-	private Graphics myBuffer; // used to pain the background
+	public BufferedImage myImage = new BufferedImage(FRAME, FRAME, BufferedImage.TYPE_INT_RGB); // creates and image over the background and							// allows for RGB sampling
+	private Graphics myBuffer; // used to paint the background
 	private Timer t; // creates a new timer for the key listener
 	private Pacman pm; // declares a pacman
 	private Ghost gt; // declares a ghost
 	private JLabel label, labelScore, labelT; // declares the three labels
 	private treat t1; // declares an item of type treat
 	private Bumper[] b1 = new Bumper[36]; // Declares and sets a new bumper
-											// array object of size 36 for the
+	File file1 = new File("H:\\Computer Science\\Final Project\\FinalLauncher.jar");					// array object of size 36 for the
 											// bumpers
 
 	boolean noMove = false;
@@ -38,12 +41,13 @@ public class PanelPac extends JPanel {
 	boolean resume = false;
 	int maxScore = 5;
 
-	public PanelPac() {
-		myImage = new BufferedImage(FRAME, FRAME, BufferedImage.TYPE_INT_RGB);
+	public PanelPac() 
+	{
+		
+		//myImage = new BufferedImage(FRAME, FRAME, BufferedImage.TYPE_INT_RGB);
 		myBuffer = myImage.getGraphics();
 		myBuffer.setColor(BACKGROUND);
 		myBuffer.fillRect(0, 0, FRAME, FRAME);
-
 		pm = new Pacman(1026, 55, 26, Color.YELLOW); // Adds new pacman object
 														// pm to a specified
 														// location
@@ -58,7 +62,7 @@ public class PanelPac extends JPanel {
 		b1[6] = new Bumper(375, 484, 83, 250);
 		b1[7] = new Bumper(375, 650, 26, 250);
 		b1[8] = new Bumper(490, 615, 100, 26);
-		b1[9] = new Bumper(385, 495, 63, 230);
+		b1[9] = new Bumper(385, 495, 63, 230, 1); //Changes the color of the center box
 		b1[10] = new Bumper(300, 675, 26, 100);
 		b1[11] = new Bumper(600, 675, 26, 100);
 		b1[12] = new Bumper(870, 330, 26, 110);
@@ -85,6 +89,7 @@ public class PanelPac extends JPanel {
 		b1[33] = new Bumper(0, 0, 1000, 20);// side bars
 		b1[34] = new Bumper(0, 975, 25, 1000);
 		b1[35] = new Bumper(980, 0, 1000, 20);
+		
 
 		t1 = new treat(500, 585);
 		t = new Timer(0, new Listener());
@@ -169,7 +174,8 @@ public class PanelPac extends JPanel {
 
 	private class Key1 extends KeyAdapter {
 		private boolean isColliding(int x, int y) {
-			if (myImage.getRGB(x, y) == -16776961) {
+			if (myImage.getRGB(x, y) == -16776961) // the color of blue = -16776961
+			{
 
 				return true;
 			} else
@@ -250,14 +256,13 @@ public class PanelPac extends JPanel {
 			for (int x = 0; x < 36; x++) {
 				b1[x].draw(myBuffer);
 			}
-
+			//System.out.println(myImage.getRGB(500,  500)); debugging
 			t1.draw(myBuffer);
 			repaint();
 
 		}
 	}
 
-	// testing
 	public void titleScreen() {
 		if (notitle == false) {
 			noMove = true;
@@ -269,7 +274,7 @@ public class PanelPac extends JPanel {
 			label.setOpaque(true);
 			add(label);
 
-			JButton button3 = new JButton("QUIT TO DESKTOP");
+			JButton button3 = new JButton("Quit To Desktop");
 			button3.setFont(new Font("Arial", Font.PLAIN, 40));
 			button3.setPreferredSize(new Dimension(400, 100));
 			button3.setBounds(500, 500, 100, 100);
@@ -279,6 +284,17 @@ public class PanelPac extends JPanel {
 			button3.setBackground(Color.red);
 			button3.setSize(new Dimension(100, 100));
 			add(button3);
+			
+			JButton button101 = new JButton("Launcher");
+			button101.setFont(new Font("Arial", Font.PLAIN, 40));
+			button101.setPreferredSize(new Dimension(400, 100));
+			button101.setBounds(500, 500, 100, 100);
+			button101.addActionListener(new ListenerTitle());
+			button101.setBorderPainted(false);
+			button101.setFocusPainted(false);
+			button101.setBackground(Color.CYAN);
+			button101.setSize(new Dimension(100, 100));
+			add(button101);
 
 			JButton button2 = new JButton("PLAY PACGHOST");
 			button2.setFont(new Font("Arial", Font.PLAIN, 40));
@@ -358,8 +374,7 @@ public class PanelPac extends JPanel {
 			label.setOpaque(true);
 			add(label);
 
-			labelT = new JLabel(
-					"<html>		The red player uses WASD keys to move.<br> 		Its objective is to touch yellow player.<br> Meanwhile, yellow wishes to amass the highest score possible by collecting treats.<br> He can move by arrow keys.<br> To begin playing, press the back button, then select PLAY.</html> ");
+			labelT = new JLabel("<html> The red player uses WASD keys to move.<br> The Yellow Player moves with the arrow keys. <br> Red's objective is to touch yellow player.<br> Meanwhile, yellow's goal is to amass the highest score <br>possible by collecting treats (White Balls).<br> To begin playing, press the back button, then select PLAY. ENJOY :></html> ");
 			labelT.setFont(new Font("Courier", Font.BOLD, 20)); // serif
 			labelT.setForeground(Color.white);
 			labelT.setBackground(Color.BLACK);
@@ -389,6 +404,19 @@ public class PanelPac extends JPanel {
 
 		}
 	}
+	private class ListenerTitle implements ActionListener {
+		public void actionPerformed(ActionEvent e) 
+		{
+			try {
+                Desktop.getDesktop().open(file1);
+             } 
+                catch (IOException e1) {
+                
+                   e1.printStackTrace();
+                }
+             System.exit(0);
+		}
+	}
 
 	private double distance(double x1, double y1, double x2, double y2) {
 		return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
@@ -406,16 +434,27 @@ public class PanelPac extends JPanel {
 
 			noMove = true;
 
-			JButton button = new JButton("QUIT");
+			JButton button = new JButton("Quit To Desktop");
 			button.setFont(new Font("Arial", Font.PLAIN, 40));
 			button.setPreferredSize(new Dimension(400, 100));
 			button.setBounds(500, 500, 100, 100);
-			button.addActionListener(new Listener12());
+			button.addActionListener(new Listener3());
 			button.setBorderPainted(false);
 			button.setFocusPainted(false);
 			button.setBackground(Color.red);
 			button.setSize(new Dimension(100, 100));
 			add(button);
+			
+			JButton button10 = new JButton("Launcher");
+			button10.setFont(new Font("Arial", Font.PLAIN, 40));
+			button10.setPreferredSize(new Dimension(400, 100));
+			button10.setBounds(500, 500, 100, 100);
+			button10.addActionListener(new ListenerTitle());
+			button10.setBorderPainted(false);
+			button10.setFocusPainted(false);
+			button10.setBackground(Color.CYAN);
+			button10.setSize(new Dimension(100, 100));
+			add(button10);
 
 			JButton button1 = new JButton("PLAY AGAIN");
 			button1.setFont(new Font("Arial", Font.PLAIN, 40));
@@ -436,12 +475,6 @@ public class PanelPac extends JPanel {
 
 	}
 
-	private class Listener12 implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			System.exit(0);
-		}
-	}
-
 	private class Listener13 implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			pm.setX(500);
@@ -451,14 +484,14 @@ public class PanelPac extends JPanel {
 			removeAll();
 			notagain = false;
 			noMove = false;
-			t1.jump();
+			t1.jump(getX(), getY());
 		}
 	}
 
 	public void getTheTreatg(Ghost g, treat t) {
 		double dist1 = distance(g.getX(), g.getY(), t.getX(), t.getY());
 		if (dist1 < (g.getLength() / 2) + 6) {
-			t1.jump();
+			t1.jump(getX(), getY());
 		}
 
 	}
@@ -467,7 +500,7 @@ public class PanelPac extends JPanel {
 		double dist = distance(p.getX(), p.getY(), t.getX(), t.getY());
 		if (dist < (p.getLength() / 2) + 6) {
 			score++;
-			t1.jump();
+			t1.jump(getX(), getY());
 			
 
 			if (score < maxScore) {
@@ -487,16 +520,26 @@ public class PanelPac extends JPanel {
 				score = 0; // reset score
 				noMove = true;
 
-				JButton button = new JButton("QUIT");
+				JButton button = new JButton("Quit To Desktop");
 				button.setFont(new Font("Arial", Font.PLAIN, 40));
 				button.setPreferredSize(new Dimension(400, 100));
 				button.setBounds(500, 500, 100, 100);
-				button.addActionListener(new Listener12());
+				button.addActionListener(new Listener3());
 				button.setBorderPainted(false);
 				button.setFocusPainted(false);
 				button.setBackground(Color.red);
 				button.setSize(new Dimension(100, 100));
 				add(button);
+				JButton button9 = new JButton("Launcher");
+				button9.setFont(new Font("Arial", Font.PLAIN, 40));
+				button9.setPreferredSize(new Dimension(400, 100));
+				button9.setBounds(500, 500, 100, 100);
+				button9.addActionListener(new ListenerTitle());
+				button9.setBorderPainted(false);
+				button9.setFocusPainted(false);
+				button9.setBackground(Color.CYAN);
+				button9.setSize(new Dimension(100, 100));
+				add(button9);
 
 				JButton button1 = new JButton("PLAY AGAIN");
 				button1.setFont(new Font("Arial", Font.PLAIN, 40));

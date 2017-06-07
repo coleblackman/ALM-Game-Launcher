@@ -3,8 +3,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class treat {
-	private double myX;
-	private double myY;
+	private int myX;
+	private int myY;
 	private double myDiameter;
 	private Color myColor;
 	private double myRadius;
@@ -20,7 +20,7 @@ public class treat {
 		myRadius = myDiameter / 2;
 	}
 
-	public treat(double x, double y) {
+	public treat(int x, int y) {
 		myX = x;
 		myY = y;
 		myDiameter = 12;
@@ -28,11 +28,11 @@ public class treat {
 		myRadius = 6;
 	}
 
-	public double getX() {
+	public int getX() {
 		return myX;
 	}
 
-	public double getY() {
+	public int getY() {
 		return myY;
 	}
 
@@ -49,11 +49,11 @@ public class treat {
 	}
 
 	// modifier methods
-	public void setX(double x) {
+	public void setX(int x) {
 		myX = x;
 	}
 
-	public void setY(double y) {
+	public void setY(int y) {
 		myY = y;
 	}
 
@@ -62,29 +62,33 @@ public class treat {
 	}
 
 	private boolean isColliding(int x, int y) {
-		myImage = new BufferedImage(900, 900, BufferedImage.TYPE_INT_RGB);
-		myBuffer = myImage.getGraphics();
-
-		if (myImage.getRGB(x, y) == -16776961) {
+		//myImage = new BufferedImage(900, 900, BufferedImage.TYPE_INT_RGB);
+		//myBuffer = myImage.getGraphics();
+		
+		if (myImage.getRGB(x, y) != -16777216 || myImage.getRGB(x, y) == -16776961 || myImage.getRGB(x, y) == -12566464) {
 
 			return true;
 		} else
 			return false;
 	}
 
-	public void jump() {
-
+	public void jump(int x, int y) 
+	{
+		
 		int a = (int) (Math.random() * 870 + 100);
 		int b = (int) (Math.random() * 870 + 100);
+		System.out.println(a + " " + b);
 		myImage = new BufferedImage(1000, 1000, BufferedImage.TYPE_INT_RGB);
 		myBuffer = myImage.getGraphics();
-
-		while (myImage.getRGB(a, b) == -16776961) {
-
-			b = (int) (Math.random() * 870 + 100);
+		
+		while(isColliding(a, b)) // the color of black is -16777216 and blue = -16776961
+		{
 			a = (int) (Math.random() * 870 + 100);
+			b = (int) (Math.random() * 870 + 100);
+			System.out.println(a + " " + b);
+			myX = a;
+			myY = b;
 		}
-
 		myX = a;
 		myY = b;
 
