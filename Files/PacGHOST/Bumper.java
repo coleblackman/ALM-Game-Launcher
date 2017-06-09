@@ -29,7 +29,7 @@ public class Bumper {
 		myY = y;
 		myYWidth = mx;
 		myXWidth = my;
-		myColor = Color.BLACK;
+		myColor = Color.DARK_GRAY;
 	}
 
 	public int getX() {

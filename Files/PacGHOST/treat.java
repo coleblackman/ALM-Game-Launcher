@@ -1,6 +1,8 @@
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import javax.swing.*;
+import java.awt.*;
 
 public class treat {
 	private int myX;
@@ -9,8 +11,15 @@ public class treat {
 	private Color myColor;
 	private double myRadius;
 	private static final Color white = new Color(255, 255, 255);
-	private BufferedImage myImage;
-	private Graphics myBuffer;
+	public ImageIcon board = new ImageIcon("board.png");
+	public static BufferedImage myImage2 = new BufferedImage(1000, 1000, BufferedImage.TYPE_INT_RGB);
+	public static Graphics myBuffer2;
+
+	public void draw2()
+	{
+		myBuffer2 = myImage2.getGraphics();
+		myBuffer2.drawImage(board, 0, 0, 1000, 1000, null);
+	}
 
 	public treat() {
 		myX = 200;
@@ -62,10 +71,8 @@ public class treat {
 	}
 
 	private boolean isColliding(int x, int y) {
-		//myImage = new BufferedImage(900, 900, BufferedImage.TYPE_INT_RGB);
-		//myBuffer = myImage.getGraphics();
 		
-		if (myImage.getRGB(x, y) != -16777216 || myImage.getRGB(x, y) == -16776961 || myImage.getRGB(x, y) == -12566464) {
+		if (PanelPac.myImage.getRGB(x, y) != -16777216 || PanelPac.myImage.getRGB(x, y) == -16776961 || PanelPac.myImage.getRGB(x, y) == -12566464) {
 
 			return true;
 		} else
@@ -74,25 +81,18 @@ public class treat {
 
 	public void jump(int x, int y) 
 	{
-		
+		System.out.println(PanelPac.myImage.getRGB(500, 500));
+		do
+		{
 		int a = (int) (Math.random() * 870 + 100);
 		int b = (int) (Math.random() * 870 + 100);
-		System.out.println(a + " " + b);
-		myImage = new BufferedImage(1000, 1000, BufferedImage.TYPE_INT_RGB);
-		myBuffer = myImage.getGraphics();
-		
-		while(isColliding(a, b)) // the color of black is -16777216 and blue = -16776961
-		{
-			a = (int) (Math.random() * 870 + 100);
-			b = (int) (Math.random() * 870 + 100);
-			System.out.println(a + " " + b);
-			myX = a;
-			myY = b;
-		}
 		myX = a;
 		myY = b;
-
-	}
+		System.out.println(a + " " + b);
+		System.out.println(PanelPac.myImage.getRGB(myX, myY));
+		
+		}while(isColliding(myX, myY));
+		}
 
 	public void draw(Graphics myBuffer) {
 		myBuffer.setColor(myColor);

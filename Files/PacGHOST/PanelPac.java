@@ -23,8 +23,10 @@ public class PanelPac extends JPanel {
 	private static final int FRAME = 1000;
 	private static final Color BACKGROUND = new Color(0, 0, 0);
 
-	public BufferedImage myImage = new BufferedImage(FRAME, FRAME, BufferedImage.TYPE_INT_RGB); // creates and image over the background and							// allows for RGB sampling
-	private Graphics myBuffer; // used to paint the background
+	public static BufferedImage myImage = new BufferedImage(FRAME, FRAME, BufferedImage.TYPE_INT_RGB); // creates and image over the background and							// allows for RGB sampling
+	public static Graphics myBuffer;
+	
+	// used to paint the background
 	private Timer t; // creates a new timer for the key listener
 	private Pacman pm; // declares a pacman
 	private Ghost gt; // declares a ghost
@@ -43,8 +45,6 @@ public class PanelPac extends JPanel {
 
 	public PanelPac() 
 	{
-		
-		//myImage = new BufferedImage(FRAME, FRAME, BufferedImage.TYPE_INT_RGB);
 		myBuffer = myImage.getGraphics();
 		myBuffer.setColor(BACKGROUND);
 		myBuffer.fillRect(0, 0, FRAME, FRAME);
@@ -89,7 +89,7 @@ public class PanelPac extends JPanel {
 		b1[33] = new Bumper(0, 0, 1000, 20);// side bars
 		b1[34] = new Bumper(0, 975, 25, 1000);
 		b1[35] = new Bumper(980, 0, 1000, 20);
-		
+
 
 		t1 = new treat(500, 585);
 		t = new Timer(0, new Listener());
@@ -246,17 +246,18 @@ public class PanelPac extends JPanel {
 			myBuffer.setColor(BACKGROUND);
 			myBuffer.fillRect(0, 0, FRAME, FRAME);
 			pm.setColor(Color.YELLOW);
-			pm.draw(myBuffer);
+			//pm.draw(myBuffer);
 			gt.setColor(Color.ORANGE);
 			collide(pm, gt);
 			getTheTreat(pm, t1);
 			getTheTreatg(gt, t1);
 			titleScreen();
-			gt.draw(myBuffer);
-			for (int x = 0; x < 36; x++) {
+			//gt.draw(myBuffer);
+			for (int x = 0; x < 36; x++) 
+			{
 				b1[x].draw(myBuffer);
 			}
-			//System.out.println(myImage.getRGB(500,  500)); debugging
+			
 			t1.draw(myBuffer);
 			repaint();
 

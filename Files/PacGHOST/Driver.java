@@ -11,6 +11,7 @@ public class Driver {
 		p.requestFocus();
 		frame.setUndecorated(true);
 		frame.setVisible(true);
+		
 	}
 
 }
