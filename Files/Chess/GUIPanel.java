@@ -1,4 +1,3 @@
-
 //John Link Cole Blackman 5/10/17
 import java.awt.Color;
 import java.awt.Dimension;
@@ -53,6 +52,7 @@ public class GUIPanel extends JPanel implements ActionListener
 				b1[o][p] = new JButton(); // populate with Jbuttons
 				b1[o][p].setBorderPainted(true);// settings for each Jbutton
 				b1[o][p].setFocusPainted(false);
+				b1[o][p].setBorder(javax.swing.BorderFactory.createEmptyBorder());
 				GUIPanel.b1[o][p].addActionListener(this);
 				add(b1[o][p]);
 				if ((p + o) % 2 == 0)// Color the alternating chessboard pattern
@@ -69,13 +69,17 @@ public class GUIPanel extends JPanel implements ActionListener
 					b1[o][1].setText("" + numberInt);
 					if (numberInt > 1)
 						numberInt--;
+					b1[o][1].setFont(new Font("Tahoma", Font.PLAIN, 30));
 					b1[o][1].setBackground(Color.LIGHT_GRAY);
+					b1[o][1].setBorder(BorderFactory.createLineBorder(beige, 2));
 
 				}
 				if (o == 9 && p > 1)
 				{
+					b1[9][p].setFont(new Font("Tahoma", Font.PLAIN, 30));
 					b1[9][p].setText("" + letterChar[p - 1]);
 					b1[9][p].setBackground(Color.LIGHT_GRAY);
+					b1[9][p].setBorder(BorderFactory.createLineBorder(beige, 2));
 				}
 
 			}
@@ -85,6 +89,7 @@ public class GUIPanel extends JPanel implements ActionListener
 		SetChessBoard();// calls the method SetChessBoard in order to populate the board with the starting positions
 		b1[9][1].addActionListener(new Listener());// sets up the exit button in the bottom left corner
 		b1[9][1].setText("EXIT");
+		b1[9][1].setFont(new Font("Tahoma", Font.PLAIN, 30));
 		b1[9][1].setBackground(beige);
 	}
 
@@ -295,15 +300,17 @@ public class GUIPanel extends JPanel implements ActionListener
 
 		} else
 		{
-			
+			//use the algorithm john made to convert actual pixel values to a button array value
 			fposx = (((JButton) e.getSource()).getLocationOnScreen().x) / 142 + 1;
 			fposy = (((JButton) e.getSource()).getLocationOnScreen().y) / 102 + 1;
+			//reset sposx and sposy
 			sposx = 0;
 			sposy = 0;
-			if (((JButton) e.getSource()).getText() != "")
+			if (((JButton) e.getSource()).getText() != "")//if the user did not click on a blank space
 			{
-				hasBeenClicked = true;
-				b1[fposy][fposx].setBorder(BorderFactory.createLineBorder(Color.cyan, 4));
+				hasBeenClicked = true; //reset hasbeenclicked so the user can click another square
+				if(fposy != 9 && fposx != 1) //if it is not on the a-d 1-8 squares
+					b1[fposy][fposx].setBorder(BorderFactory.createLineBorder(Color.cyan, 4)); //set the temporary border to cyan
 			}
 
 		}

@@ -1,10 +1,12 @@
 import java.awt.Color;
 
 //John Link Cole Blackman 5/10/17
-public class Rook extends Piece
+public class Rook
 {
 	public static boolean isValidMoveBlack(int fx, int fy, int sx, int sy)
 	{
+		if(sx <= 1 || sy >= 9)
+			return false;
 		if (GUIPanel.b1[fy][fx].getText() != "\u265C")
 		{
 
@@ -64,6 +66,8 @@ public class Rook extends Piece
 
 	public static boolean isValidMoveWhite(int fx, int fy, int sx, int sy)
 	{
+		if(sx <= 1 || sy >= 9)
+			return false;
 		for (int i = 0; i < 6; i++)
 		{ // for loop to iterate through all
 			// possible white pieces and makes sure
@@ -117,6 +121,8 @@ public class Rook extends Piece
 			{
 				for (int t = fy - 1; t >= sy + 1; t--)
 				{
+					if(t == sy)
+						return true;
 					if (GUIPanel.b1[t][fx].getText() != "")
 						return false;
 				}

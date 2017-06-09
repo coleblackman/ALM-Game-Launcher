@@ -1,11 +1,12 @@
-
 //John Link Cole Blackman 5/10/17
 import java.awt.Color;
 
-public class Knight extends Piece
+public class Knight
 {
 	public static boolean isValidMoveBlack(int fx, int fy, int sx, int sy)
 	{
+		if(sx <= 1 || sy >= 9)
+			return false;
 		for (int i = 0; i < 6; i++)
 		{
 
@@ -29,7 +30,8 @@ public class Knight extends Piece
 
 	public static boolean isValidMoveWhite(int fx, int fy, int sx, int sy)
 	{
-
+		if(sx <= 1 || sy >= 9)
+			return false;
 		for (int i = 0; i < 6; i++)
 		{
 

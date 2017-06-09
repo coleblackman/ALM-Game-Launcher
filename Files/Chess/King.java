@@ -1,12 +1,13 @@
-
 //John Link Cole Blackman 5/10/17
 import java.awt.Color;
 
-public class King extends Piece
+public class King
 {
 
 	public static boolean isValidMoveBlack(int fx, int fy, int sx, int sy)
 	{
+		if(sx <= 1 || sy >= 9)
+			return false;
 		if (GUIPanel.b1[fy][fx].getText() != "\u265A")
 		{
 			return false;
@@ -31,6 +32,8 @@ public class King extends Piece
 	// Method for determining if this move is valid for a white King
 	public static boolean isValidMoveWhite(int fx, int fy, int sx, int sy)
 	{
+		if(sx <= 1 || sy >= 9)
+			return false;
 		if (GUIPanel.b1[fy][fx].getText() != "\u2654")
 		{
 			return false;

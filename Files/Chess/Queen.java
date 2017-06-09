@@ -1,10 +1,12 @@
 import java.awt.Color;
 
 //John Link Cole Blackman 5/10/17
-public class Queen extends Piece
+public class Queen
 {
 	public static boolean isValidMoveBlack(int fx, int fy, int sx, int sy)
 	{
+		if(sx <= 1 || sy >= 9)
+			return false;
 		if (GUIPanel.b1[fy][fx].getText() != "\u265B")
 		{
 
@@ -18,10 +20,8 @@ public class Queen extends Piece
 			if (GUIPanel.b1[sy][sx].getText().equals(Character.toString(GUIPanel.AllBlackPieces[i])))
 				return false;
 		}
-		System.out.println(" fx " + fx + " fy " + fy + " sx " + sx + " sy " + sy);
 		if (QueenRBlack(fx, fy, sx, sy) || QueenBBlack(fx, fy, sx, sy))
 		{
-			System.out.println("NOOOOO");
 			return true;
 		}
 		return false;
@@ -29,6 +29,8 @@ public class Queen extends Piece
 
 	public static boolean isValidMoveWhite(int fx, int fy, int sx, int sy)
 	{
+		if(sx <= 1 || sy >= 9)
+			return false;
 		if (GUIPanel.b1[fy][fx].getText() != "\u2655")
 		{
 
@@ -89,7 +91,7 @@ public class Queen extends Piece
 				}
 			} else// down
 			{
-				for (int t = fy - 1; t >= sy; t--)
+				for (int t = fy - 1; t >= sy + 2; t--)
 				{
 					if (GUIPanel.b1[t][fx].getText() != "")
 						return false;
