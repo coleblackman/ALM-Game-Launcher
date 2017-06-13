@@ -20,33 +20,33 @@ public class PanelPac extends JPanel
 {
 
 	private static final long serialVersionUID = 1L;
-	public static final int FRAME = 1000; /** */
+	public static final int FRAME = 1000; /** creates the static variable for the size of the frame*/
 	private static final Color BACKGROUND = new Color(0, 0, 0);
 	public static BufferedImage myImage = new BufferedImage(FRAME, FRAME, BufferedImage.TYPE_INT_RGB);
-	public static Graphics myBuffer; /** */
-	private Timer t; /** */
-	private Pacman pm; /** */
-	private Ghost gt; /** */
-	private JLabel label, labelScore, labelT; /** */
-	private treat t1; /** */
-	public static Bumper[] b1 = new Bumper[36]; /** */
-	File file1 = new File("H:\\Computer Science\\Final Project\\Title Screen\\DriverFinal.java"); /** */
+	public static Graphics myBuffer; /** creates the graphics portion of the panel to draw onto*/
+	private Timer t; /** initializes a timer*/
+	private Pacman pm; /** initializes pacman*/
+	private Ghost gt; /** initializes a ghost*/
+	private JLabel label, labelScore, labelT; /** initializes a jlabel*/
+	private treat t1; /** initializes the treat*/
+	public static Bumper[] b1 = new Bumper[36]; /** initializes the bumper array of 35 bumpers*/
+	File file1 = new File("H:\\Computer Science\\Final Project\\Title Screen\\DriverFinal.java"); /** creates the filepath for the Launcher*/
 
 
-	boolean noMove = false; /** */
-	boolean notagain = false; /** */
-	boolean notitle = false; /** */
-	int score = 0; /** */
-	boolean resume = false; /** */
-	int maxScore = 5; /** */
+	boolean noMove = false; /** is the game over or not in progress*/
+	boolean notagain = false; /** make sure a process is only done once per action*/
+	boolean notitle = false; /** is the title screen up*/
+	int score = 0; /** holds the score value*/
+	boolean resume = false; /** checks to see if the game has restated*/
+	int maxScore = 5; /** has the score reached MAXSCORE of four*/
 
 	public PanelPac()
 	{
 
-		pm = new Pacman(1026, 55, 26, Color.YELLOW); /** */
-		gt = new Ghost(1026, 25, 26);
+		pm = new Pacman(1026, 55, 26, Color.YELLOW); /** creates the pacman at the specified location*/
+		gt = new Ghost(1026, 25, 26); /** creates the ghost at the specified location*/
 
-		bumpermaker(); /** */
+		bumpermaker(); /** this method below creates all of the bumpers at the specified locations*/
 		myBuffer = myImage.getGraphics();
 		myBuffer.setColor(BACKGROUND);
 		myBuffer.fillRect(0, 0, FRAME, FRAME);
@@ -61,7 +61,7 @@ public class PanelPac extends JPanel
 		t.start();
 	}
 
-	public static void bumpermaker()
+	public static void bumpermaker() /** method that stores all of the bumper data*/
 	{
 		b1[0] = new Bumper(0, 0, 20, 1000); /** */
 		b1[1] = new Bumper(20, 960, 15, 960);
@@ -103,7 +103,7 @@ public class PanelPac extends JPanel
 
 	public void paintComponent(Graphics g)
 	{
-		g.drawImage(myImage, 0, 0, getWidth(), getHeight(), this); /** */
+		g.drawImage(myImage, 0, 0, getWidth(), getHeight(), this); /** this draws the buffered image upon running the code*/
 
 	}
 
@@ -111,7 +111,7 @@ public class PanelPac extends JPanel
 	{
 		private boolean isColliding(int x, int y)
 		{
-			if (myImage.getRGB(x, y) == -16776961) /** */
+			if (myImage.getRGB(x, y) == -16776961) /** -16776961 is the RGB value of color.blue*/
 			{
 
 				return true;
@@ -119,14 +119,14 @@ public class PanelPac extends JPanel
 				return false;
 		}
 
-		public void keyPressed(KeyEvent e) /** */
+		public void keyPressed(KeyEvent e) /** Pacmans keylistener and movement validation*/
 		{
 
 			{
 				if (!noMove)
 				{
 
-					/** */
+					/** DOWN*/
 					if (e.getKeyCode() == KeyEvent.VK_DOWN)
 					{
 						for (int i = 0; i < 10; i++)
@@ -141,7 +141,7 @@ public class PanelPac extends JPanel
 						}
 					}
 
-					/** */
+					/** UP*/
 					if (e.getKeyCode() == KeyEvent.VK_UP)
 					{
 						for (int i = 0; i < 10; i++)
@@ -154,7 +154,7 @@ public class PanelPac extends JPanel
 						}
 					}
 
-					/** */
+					/** RIGHT*/
 					if (e.getKeyCode() == KeyEvent.VK_RIGHT)
 					{
 						for (int i = 0; i < 10; i++)
@@ -167,7 +167,7 @@ public class PanelPac extends JPanel
 						}
 					}
 
-					/** */
+					/** LEFT*/
 					if (e.getKeyCode() == KeyEvent.VK_LEFT)
 					{
 						for (int i = 0; i < 10; i++)
@@ -179,7 +179,7 @@ public class PanelPac extends JPanel
 
 						}
 					}
-					if (e.getKeyCode() == KeyEvent.VK_ESCAPE)
+					if (e.getKeyCode() == KeyEvent.VK_ESCAPE) /** brings up the menu*/
 						notitle = false;
 				}
 			}
@@ -198,13 +198,13 @@ public class PanelPac extends JPanel
 				return false;
 		}
 
-		public void keyPressed(KeyEvent e)  /** */
+		public void keyPressed(KeyEvent e)  /** Ghost's keylistener and movement validation*/
 		{
 
 			if (!noMove)
 			{
 
-				/** */
+				/** DOWN*/
 				if (e.getKeyCode() == KeyEvent.VK_S)
 				{
 					for (int i = 0; i < 10; i++)
@@ -219,7 +219,7 @@ public class PanelPac extends JPanel
 					}
 				}
 
-				/** */
+				/** UP*/
 
 				if (e.getKeyCode() == KeyEvent.VK_W)
 				{
@@ -233,7 +233,7 @@ public class PanelPac extends JPanel
 					}
 				}
 
-				/** */
+				/** RIGHT*/
 				if (e.getKeyCode() == KeyEvent.VK_D)
 				{
 					for (int i = 0; i < 10; i++)
@@ -246,7 +246,7 @@ public class PanelPac extends JPanel
 					}
 				}
 
-				/** */
+				/** LEFT*/
 				if (e.getKeyCode() == KeyEvent.VK_A)
 				{
 					for (int i = 0; i < 10; i++)
@@ -259,7 +259,7 @@ public class PanelPac extends JPanel
 					}
 				}
 
-				if (e.getKeyCode() == KeyEvent.VK_ESCAPE)
+				if (e.getKeyCode() == KeyEvent.VK_ESCAPE) /** brings up the menu*/
 				{
 					notitle = false;
 					resume = true;
@@ -269,22 +269,22 @@ public class PanelPac extends JPanel
 		}
 	}
 
-	private class Listener implements ActionListener /** */
+	private class Listener implements ActionListener /** this listener is called once to draw the panel at the beginning*/
 	{
 		public void actionPerformed(ActionEvent e)
 		{
 
-			myBuffer.setColor(BACKGROUND); /** */
-			myBuffer.fillRect(0, 0, FRAME, FRAME); /** */
+			myBuffer.setColor(BACKGROUND); //sets the background color to black
+			myBuffer.fillRect(0, 0, FRAME, FRAME);
 			pm.setColor(Color.YELLOW);
 			pm.draw(myBuffer);
 			gt.setColor(Color.ORANGE);
 			collide(pm, gt);
-			getTheTreat(pm, t1); /** */
-			getTheTreatg(gt, t1); /** */
-			titleScreen(); /** */
+			getTheTreat(pm, t1); /** allows pacman to touch the treat*/
+			getTheTreatg(gt, t1); /** allows the ghost to be able to touch the treat*/
+			titleScreen(); /** calls the title screen to be pulled up*/
 			gt.draw(myBuffer);
-			for (int x = 0; x < 36; x++) /** */
+			for (int x = 0; x < 36; x++) /** draws every bumper in the array*/
 			{
 				b1[x].draw(myBuffer);
 			}
@@ -301,7 +301,7 @@ public class PanelPac extends JPanel
 			noMove = true;
 
 			label = new JLabel("PACGHOST- Competitive PACMAN spinoff");
-			label.setFont(new Font("Courier", Font.BOLD, 40));  /** */
+			label.setFont(new Font("Courier", Font.BOLD, 40));
 			label.setForeground(Color.white);
 			label.setBackground(Color.gray);
 			label.setOpaque(true);
@@ -403,7 +403,7 @@ public class PanelPac extends JPanel
 		}
 	}
 
-	private class Listener4 implements ActionListener  /** */
+	private class Listener4 implements ActionListener  /** this listener is for the instructions*/
 	{
 		public void actionPerformed(ActionEvent e)
 		{
@@ -543,7 +543,7 @@ public class PanelPac extends JPanel
 		}
 	}
 
-	public void getTheTreatg(Ghost g, treat t) /** */
+	public void getTheTreatg(Ghost g, treat t)
 	{
 		double dist1 = distance(g.getX(), g.getY(), t.getX(), t.getY());
 		if (dist1 < (g.getLength() / 2) + 6)
@@ -553,7 +553,7 @@ public class PanelPac extends JPanel
 
 	}
 
-	public void getTheTreat(Pacman p, treat t) /** */
+	public void getTheTreat(Pacman p, treat t)
 	{
 		double dist = distance(p.getX(), p.getY(), t.getX(), t.getY());
 		if (dist < (p.getLength() / 2) + 6)
@@ -565,7 +565,7 @@ public class PanelPac extends JPanel
 			{
 				removeAll();
 				labelScore = new JLabel("Score: " + score);
-				labelScore.setFont(new Font("Courier", Font.BOLD, 40)); /** */
+				labelScore.setFont(new Font("Courier", Font.BOLD, 40));
 				labelScore.setForeground(Color.GREEN);
 				labelScore.setBounds(400, 490, 300, 60);
 				add(labelScore);
@@ -573,7 +573,7 @@ public class PanelPac extends JPanel
 			} else
 			{
 				label = new JLabel("Game Over. Pac Wins");
-				label.setFont(new Font("Courier", Font.BOLD, 80)); /** */
+				label.setFont(new Font("Courier", Font.BOLD, 80));
 				label.setForeground(Color.white);
 				add(label);
 
