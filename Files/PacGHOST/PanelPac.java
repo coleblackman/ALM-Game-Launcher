@@ -16,80 +16,40 @@ import javax.swing.JLabel;//Imports
 import javax.swing.JPanel;//Imports
 import javax.swing.Timer;//Imports
 
-public class PanelPac extends JPanel {
+public class PanelPac extends JPanel
+{
 
 	private static final long serialVersionUID = 1L;
-	// setup the background
-	private static final int FRAME = 1000;
+	public static final int FRAME = 1000; /** */
 	private static final Color BACKGROUND = new Color(0, 0, 0);
+	public static BufferedImage myImage = new BufferedImage(FRAME, FRAME, BufferedImage.TYPE_INT_RGB);
+	public static Graphics myBuffer; /** */
+	private Timer t; /** */
+	private Pacman pm; /** */
+	private Ghost gt; /** */
+	private JLabel label, labelScore, labelT; /** */
+	private treat t1; /** */
+	public static Bumper[] b1 = new Bumper[36]; /** */
+	File file1 = new File("H:\\Computer Science\\Final Project\\Title Screen\\DriverFinal.java"); /** */
 
-	public static BufferedImage myImage = new BufferedImage(FRAME, FRAME, BufferedImage.TYPE_INT_RGB); // creates and image over the background and							// allows for RGB sampling
-	public static Graphics myBuffer;
-	
-	// used to paint the background
-	private Timer t; // creates a new timer for the key listener
-	private Pacman pm; // declares a pacman
-	private Ghost gt; // declares a ghost
-	private JLabel label, labelScore, labelT; // declares the three labels
-	private treat t1; // declares an item of type treat
-	private Bumper[] b1 = new Bumper[36]; // Declares and sets a new bumper
-	File file1 = new File("H:\\Computer Science\\Final Project\\FinalLauncher.jar");					// array object of size 36 for the
-											// bumpers
 
-	boolean noMove = false;
-	boolean notagain = false;
-	boolean notitle = false;
-	int score = 0;
-	boolean resume = false;
-	int maxScore = 5;
+	boolean noMove = false; /** */
+	boolean notagain = false; /** */
+	boolean notitle = false; /** */
+	int score = 0; /** */
+	boolean resume = false; /** */
+	int maxScore = 5; /** */
 
-	public PanelPac() 
+	public PanelPac()
 	{
+
+		pm = new Pacman(1026, 55, 26, Color.YELLOW); /** */
+		gt = new Ghost(1026, 25, 26);
+
+		bumpermaker(); /** */
 		myBuffer = myImage.getGraphics();
 		myBuffer.setColor(BACKGROUND);
 		myBuffer.fillRect(0, 0, FRAME, FRAME);
-		pm = new Pacman(1026, 55, 26, Color.YELLOW); // Adds new pacman object
-														// pm to a specified
-														// location
-		gt = new Ghost(1026, 25, 26);
-
-		b1[0] = new Bumper(0, 0, 20, 1000);
-		b1[1] = new Bumper(20, 960, 15, 960);
-		b1[2] = new Bumper(20, 20, 310, 15);
-		b1[3] = new Bumper(20, 660, 310, 15);
-		b1[4] = new Bumper(965, 20, 310, 15);
-		b1[5] = new Bumper(965, 660, 310, 15);
-		b1[6] = new Bumper(375, 484, 83, 250);
-		b1[7] = new Bumper(375, 650, 26, 250);
-		b1[8] = new Bumper(490, 615, 100, 26);
-		b1[9] = new Bumper(385, 495, 63, 230, 1); //Changes the color of the center box
-		b1[10] = new Bumper(300, 675, 26, 100);
-		b1[11] = new Bumper(600, 675, 26, 100);
-		b1[12] = new Bumper(870, 330, 26, 110);
-		b1[13] = new Bumper(870, 330 + 330, 26, 110);
-		b1[14] = new Bumper(20, 330, 26, 110);
-		b1[15] = new Bumper(20, 330 + 310, 26, 110);
-		b1[16] = new Bumper(477, 20, 100, 26);
-		b1[17] = new Bumper(865, 55 + 46 + 55, 40, 50);
-		b1[18] = new Bumper();
-		b1[19] = new Bumper(385, 780, 26, 230);// lower t mid
-		b1[20] = new Bumper(487, 796, 100, 26);
-		b1[21] = new Bumper(30, 750, 26, 100);// side bottoms
-		b1[22] = new Bumper(870, 750, 26, 100);
-		b1[23] = new Bumper(230, 800, 100, 26);// bottom left t
-		b1[24] = new Bumper(230, 300, 230, 26);
-		b1[25] = new Bumper(770, 800, 100, 26);
-		b1[26] = new Bumper(770, 300, 230, 26);
-		b1[27] = new Bumper(385, 280, 26, 230);// mid upper
-		b1[28] = new Bumper(487, 296, 100, 26);
-		b1[29] = new Bumper(185, 120, 26, 200);
-		b1[30] = new Bumper(610, 120, 26, 200);
-		b1[31] = new Bumper(265, 146, 100, 26);
-		b1[32] = new Bumper(690, 146, 100, 26);
-		b1[33] = new Bumper(0, 0, 1000, 20);// side bars
-		b1[34] = new Bumper(0, 975, 25, 1000);
-		b1[35] = new Bumper(980, 0, 1000, 20);
-
 
 		t1 = new treat(500, 585);
 		t = new Timer(0, new Listener());
@@ -101,68 +61,122 @@ public class PanelPac extends JPanel {
 		t.start();
 	}
 
-	public void paintComponent(Graphics g) {
-		g.drawImage(myImage, 0, 0, getWidth(), getHeight(), this);
+	public static void bumpermaker()
+	{
+		b1[0] = new Bumper(0, 0, 20, 1000); /** */
+		b1[1] = new Bumper(20, 960, 15, 960);
+		b1[2] = new Bumper(20, 20, 310, 15);
+		b1[3] = new Bumper(20, 660, 310, 15);
+		b1[4] = new Bumper(965, 20, 310, 15);
+		b1[5] = new Bumper(965, 660, 310, 15);
+		b1[6] = new Bumper(375, 484, 83, 250);
+		b1[7] = new Bumper(375, 650, 26, 250);
+		b1[8] = new Bumper(490, 615, 100, 26);
+		b1[9] = new Bumper(385, 495, 63, 230, 1); /** */
+		b1[10] = new Bumper(300, 675, 26, 100);
+		b1[11] = new Bumper(600, 675, 26, 100);
+		b1[12] = new Bumper(870, 330, 26, 110);
+		b1[13] = new Bumper(870, 330 + 330, 26, 110);
+		b1[14] = new Bumper(20, 330, 26, 110);
+		b1[15] = new Bumper(20, 330 + 310, 26, 110);
+		b1[16] = new Bumper(477, 20, 100, 26);
+		b1[17] = new Bumper(865, 55 + 46 + 55, 40, 50);
+		b1[18] = new Bumper();
+		b1[19] = new Bumper(385, 780, 26, 230); /** lower t middle*/
+		b1[20] = new Bumper(487, 796, 100, 26);
+		b1[21] = new Bumper(30, 750, 26, 100); /** side bottom pieces*/
+		b1[22] = new Bumper(870, 750, 26, 100);
+		b1[23] = new Bumper(230, 800, 100, 26); /** bottom left T*/
+		b1[24] = new Bumper(230, 300, 230, 26);
+		b1[25] = new Bumper(770, 800, 100, 26);
+		b1[26] = new Bumper(770, 300, 230, 26);
+		b1[27] = new Bumper(385, 280, 26, 230); /** middle upper part*/
+		b1[28] = new Bumper(487, 296, 100, 26);
+		b1[29] = new Bumper(185, 120, 26, 200);
+		b1[30] = new Bumper(610, 120, 26, 200);
+		b1[31] = new Bumper(265, 146, 100, 26);
+		b1[32] = new Bumper(690, 146, 100, 26);
+		b1[33] = new Bumper(0, 0, 1000, 20); /** side bars*/
+		b1[34] = new Bumper(0, 975, 25, 1000);
+		b1[35] = new Bumper(980, 0, 1000, 20);
+	}
+
+	public void paintComponent(Graphics g)
+	{
+		g.drawImage(myImage, 0, 0, getWidth(), getHeight(), this); /** */
 
 	}
 
-	private class Key extends KeyAdapter {
-		private boolean isColliding(int x, int y) {
-			if (myImage.getRGB(x, y) == -16776961) {
+	private class Key extends KeyAdapter
+	{
+		private boolean isColliding(int x, int y)
+		{
+			if (myImage.getRGB(x, y) == -16776961) /** */
+			{
 
 				return true;
 			} else
 				return false;
 		}
 
-		public void keyPressed(KeyEvent e) {
+		public void keyPressed(KeyEvent e) /** */
+		{
 
 			{
+				if (!noMove)
+				{
 
-				if (!noMove) {
-					// DOWN
-					if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-						for (int i = 0; i < 10; i++) {
+					/** */
+					if (e.getKeyCode() == KeyEvent.VK_DOWN)
+					{
+						for (int i = 0; i < 10; i++)
+						{
 							if (!isColliding((int) (pm.getX() + 12), (int) (pm.getY() + 14))
 									&& !isColliding((int) (pm.getX()), (int) (pm.getY() + 14))
-									&& !isColliding((int) (pm.getX() - 12), (int) (pm.getY() + 14))) {
+									&& !isColliding((int) (pm.getX() - 12), (int) (pm.getY() + 14)))
+							{
 								pm.setY(pm.getY() + 1);
 							}
-							
+
 						}
 					}
 
-					// UP
-
-					if (e.getKeyCode() == KeyEvent.VK_UP) {
-						for (int i = 0; i < 10; i++) {
+					/** */
+					if (e.getKeyCode() == KeyEvent.VK_UP)
+					{
+						for (int i = 0; i < 10; i++)
+						{
 							if (!isColliding((int) (pm.getX() + 12), (int) (pm.getY()) - 14)
 									&& !isColliding((int) (pm.getX() - 12), (int) (pm.getY()) - 14)
 									&& !isColliding((int) (pm.getX()), (int) (pm.getY()) - 14))
 								pm.setY(pm.getY() - 1);
-							
+
 						}
 					}
 
-					// RIGHT
-					if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-						for (int i = 0; i < 10; i++) {
+					/** */
+					if (e.getKeyCode() == KeyEvent.VK_RIGHT)
+					{
+						for (int i = 0; i < 10; i++)
+						{
 							if (!isColliding((int) (pm.getX() + 14), (int) (pm.getY() + 12))
 									&& !isColliding((int) (pm.getX() + 14), (int) (pm.getY()))
 									&& !isColliding((int) (pm.getX() + 14), (int) (pm.getY() - 12)))
 								pm.setX(pm.getX() + 1);
-							
+
 						}
 					}
 
-					// LEFT
-					if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-						for (int i = 0; i < 10; i++) {
+					/** */
+					if (e.getKeyCode() == KeyEvent.VK_LEFT)
+					{
+						for (int i = 0; i < 10; i++)
+						{
 							if (!isColliding((int) (pm.getX() - 14), (int) (pm.getY() + 12))
 									&& !isColliding((int) (pm.getX() - 14), (int) (pm.getY()))
 									&& !isColliding((int) (pm.getX() - 14), (int) (pm.getY() - 12)))
 								pm.setX(pm.getX() - 1);
-							
+
 						}
 					}
 					if (e.getKeyCode() == KeyEvent.VK_ESCAPE)
@@ -172,9 +186,11 @@ public class PanelPac extends JPanel {
 		}
 	}
 
-	private class Key1 extends KeyAdapter {
-		private boolean isColliding(int x, int y) {
-			if (myImage.getRGB(x, y) == -16776961) // the color of blue = -16776961
+	private class Key1 extends KeyAdapter
+	{
+		private boolean isColliding(int x, int y)
+		{
+			if (myImage.getRGB(x, y) == -16776961) /** */
 			{
 
 				return true;
@@ -182,56 +198,69 @@ public class PanelPac extends JPanel {
 				return false;
 		}
 
-		public void keyPressed(KeyEvent e) {
+		public void keyPressed(KeyEvent e)  /** */
+		{
 
-			if (!noMove) {
-				// DOWN
-				if (e.getKeyCode() == KeyEvent.VK_S) {
-					for (int i = 0; i < 10; i++) {
+			if (!noMove)
+			{
+
+				/** */
+				if (e.getKeyCode() == KeyEvent.VK_S)
+				{
+					for (int i = 0; i < 10; i++)
+					{
 						if (!isColliding((int) (gt.getX() + 12), (int) (gt.getY() + 14))
 								&& !isColliding((int) (gt.getX()), (int) (gt.getY() + 14))
-								&& !isColliding((int) (gt.getX() - 12), (int) (gt.getY() + 14))) {
+								&& !isColliding((int) (gt.getX() - 12), (int) (gt.getY() + 14)))
+						{
 							gt.setY(gt.getY() + 1);
 						}
-						
+
 					}
 				}
 
-				// UP
+				/** */
 
-				if (e.getKeyCode() == KeyEvent.VK_W) {
-					for (int i = 0; i < 10; i++) {
+				if (e.getKeyCode() == KeyEvent.VK_W)
+				{
+					for (int i = 0; i < 10; i++)
+					{
 						if (!isColliding((int) (gt.getX() + 12), (int) (gt.getY()) - 14)
 								&& !isColliding((int) (gt.getX() - 12), (int) (gt.getY()) - 14)
 								&& !isColliding((int) (gt.getX()), (int) (gt.getY()) - 14))
 							gt.setY(gt.getY() - 1);
-						
+
 					}
 				}
 
-				// RIGHT
-				if (e.getKeyCode() == KeyEvent.VK_D) {
-					for (int i = 0; i < 10; i++) {
+				/** */
+				if (e.getKeyCode() == KeyEvent.VK_D)
+				{
+					for (int i = 0; i < 10; i++)
+					{
 						if (!isColliding((int) (gt.getX() + 14), (int) (gt.getY() + 12))
 								&& !isColliding((int) (gt.getX() + 14), (int) (gt.getY()))
 								&& !isColliding((int) (gt.getX() + 14), (int) (gt.getY() - 12)))
 							gt.setX(gt.getX() + 1);
-						
+
 					}
 				}
 
-				// LEFT
-				if (e.getKeyCode() == KeyEvent.VK_A) {
-					for (int i = 0; i < 10; i++) {
+				/** */
+				if (e.getKeyCode() == KeyEvent.VK_A)
+				{
+					for (int i = 0; i < 10; i++)
+					{
 						if (!isColliding((int) (gt.getX() - 14), (int) (gt.getY() + 12))
 								&& !isColliding((int) (gt.getX() - 14), (int) (gt.getY()))
 								&& !isColliding((int) (gt.getX() - 14), (int) (gt.getY() - 12)))
 							gt.setX(gt.getX() - 1);
-						
+
 					}
 				}
 
-				if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+				if (e.getKeyCode() == KeyEvent.VK_ESCAPE)
+				{
 					notitle = false;
 					resume = true;
 				}
@@ -240,42 +269,45 @@ public class PanelPac extends JPanel {
 		}
 	}
 
-	private class Listener implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
+	private class Listener implements ActionListener /** */
+	{
+		public void actionPerformed(ActionEvent e)
+		{
 
-			myBuffer.setColor(BACKGROUND);
-			myBuffer.fillRect(0, 0, FRAME, FRAME);
+			myBuffer.setColor(BACKGROUND); /** */
+			myBuffer.fillRect(0, 0, FRAME, FRAME); /** */
 			pm.setColor(Color.YELLOW);
-			//pm.draw(myBuffer);
+			pm.draw(myBuffer);
 			gt.setColor(Color.ORANGE);
 			collide(pm, gt);
-			getTheTreat(pm, t1);
-			getTheTreatg(gt, t1);
-			titleScreen();
-			//gt.draw(myBuffer);
-			for (int x = 0; x < 36; x++) 
+			getTheTreat(pm, t1); /** */
+			getTheTreatg(gt, t1); /** */
+			titleScreen(); /** */
+			gt.draw(myBuffer);
+			for (int x = 0; x < 36; x++) /** */
 			{
 				b1[x].draw(myBuffer);
 			}
-			
 			t1.draw(myBuffer);
 			repaint();
 
 		}
 	}
 
-	public void titleScreen() {
-		if (notitle == false) {
+	public void titleScreen() /** */
+	{
+		if (notitle == false)
+		{
 			noMove = true;
 
 			label = new JLabel("PACGHOST- Competitive PACMAN spinoff");
-			label.setFont(new Font("Courier", Font.BOLD, 40)); // serif
+			label.setFont(new Font("Courier", Font.BOLD, 40));  /** */
 			label.setForeground(Color.white);
 			label.setBackground(Color.gray);
 			label.setOpaque(true);
 			add(label);
 
-			JButton button3 = new JButton("Quit To Desktop");
+			JButton button3 = new JButton("QUIT");
 			button3.setFont(new Font("Arial", Font.PLAIN, 40));
 			button3.setPreferredSize(new Dimension(400, 100));
 			button3.setBounds(500, 500, 100, 100);
@@ -285,8 +317,8 @@ public class PanelPac extends JPanel {
 			button3.setBackground(Color.red);
 			button3.setSize(new Dimension(100, 100));
 			add(button3);
-			
-			JButton button101 = new JButton("Launcher");
+
+			JButton button101 = new JButton("LAUNCHER");
 			button101.setFont(new Font("Arial", Font.PLAIN, 40));
 			button101.setPreferredSize(new Dimension(400, 100));
 			button101.setBounds(500, 500, 100, 100);
@@ -319,7 +351,8 @@ public class PanelPac extends JPanel {
 			button4.setSize(new Dimension(100, 100));
 			add(button4);
 
-			if (resume == true) {
+			if (resume == true)
+			{
 				JButton buttonR = new JButton("RESUME");
 				buttonR.setFont(new Font("Arial", Font.PLAIN, 40));
 				buttonR.setPreferredSize(new Dimension(400, 100));
@@ -337,21 +370,27 @@ public class PanelPac extends JPanel {
 		}
 	}
 
-	private class Listener3 implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
+	private class Listener3 implements ActionListener /**this listener is an exit listener for the exit button*/
+	{
+		public void actionPerformed(ActionEvent e)
+		{
 			System.exit(0);
 		}
 	}
 
-	private class ListenerR implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
+	private class ListenerR implements ActionListener /**this listener clears the screen and prevents movement*/
+	{
+		public void actionPerformed(ActionEvent e)
+		{
 			removeAll();
 			noMove = false;
 		}
 	}
 
-	private class Listener2 implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
+	private class Listener2 implements ActionListener /**This listener sets the game again to defaults by moving pm and gt*/
+	{
+		public void actionPerformed(ActionEvent e)
+		{
 			pm.setX(500);
 			pm.setY(940);
 			gt.setX(490);
@@ -364,19 +403,22 @@ public class PanelPac extends JPanel {
 		}
 	}
 
-	private class Listener4 implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
+	private class Listener4 implements ActionListener  /** */
+	{
+		public void actionPerformed(ActionEvent e)
+		{
 			removeAll();
 
-			label = new JLabel("Instructions");
-			label.setFont(new Font("Courier", Font.BOLD, 40)); // serif
+			label = new JLabel("INSTRUCTIONS");
+			label.setFont(new Font("Courier", Font.BOLD, 40));  /**Instructions label */
 			label.setForeground(Color.white);
 			label.setBackground(Color.gray);
 			label.setOpaque(true);
 			add(label);
 
-			labelT = new JLabel("<html> The red player uses WASD keys to move.<br> The Yellow Player moves with the arrow keys. <br> Red's objective is to touch yellow player.<br> Meanwhile, yellow's goal is to amass the highest score <br>possible by collecting treats (White Balls).<br> To begin playing, press the back button, then select PLAY. ENJOY :></html> ");
-			labelT.setFont(new Font("Courier", Font.BOLD, 20)); // serif
+			labelT = new JLabel(
+					"<html> The red player uses WASD keys to move.<br> The Yellow Player moves with the arrow keys. <br> Red's objective is to touch yellow player.<br> Meanwhile, yellow's goal is to amass the highest score <br>possible by collecting treats (White Balls).<br> To begin playing, press the back button, then select PLAY. ENJOY :></html> ");
+			labelT.setFont(new Font("Courier", Font.BOLD, 20));  /**Label to display instructions using html tags*/
 			labelT.setForeground(Color.white);
 			labelT.setBackground(Color.BLACK);
 			labelT.setOpaque(true);
@@ -396,8 +438,11 @@ public class PanelPac extends JPanel {
 		}
 	}
 
-	private class Listenerg implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
+	private class Listenerg implements ActionListener /**Listener to clear the screen and add the title screen*/
+	{
+	
+		public void actionPerformed(ActionEvent e)
+		{
 			removeAll();
 			noMove = false;
 			titleScreen();
@@ -405,37 +450,44 @@ public class PanelPac extends JPanel {
 
 		}
 	}
-	private class ListenerTitle implements ActionListener {
-		public void actionPerformed(ActionEvent e) 
+
+	private class ListenerTitle implements ActionListener /**Listener to go back to launcher*/
+	{
+
+		public void actionPerformed(ActionEvent e)
 		{
-			try {
-                Desktop.getDesktop().open(file1);
-             } 
-                catch (IOException e1) {
-                
-                   e1.printStackTrace();
-                }
-             System.exit(0);
+			try
+			{
+				Desktop.getDesktop().open(file1);
+			} catch (IOException e1)
+			{
+
+				e1.printStackTrace();
+			}
+			System.exit(0);
 		}
 	}
 
-	private double distance(double x1, double y1, double x2, double y2) {
+	private double distance(double x1, double y1, double x2, double y2) /**Distance formula method*/
+	{
 		return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
 	}
 
-	public void collide(Pacman p, Ghost g) {
-		double dist = distance(p.getX(), p.getY(), g.getX(), g.getY());
+	public void collide(Pacman p, Ghost g)
+	{
+		double dist = distance(p.getX(), p.getY(), g.getX(), g.getY()); /**This calls the distance formula to determine if pm and gt are colliding and sets their difference to a double*/
 
-		if (dist < (p.getLength() / 2) + (g.getLength() / 2) && notagain == false) {
+		if (dist < (p.getLength() / 2) + (g.getLength() / 2) && notagain == false) /**if statement to determine if they are colliding, accounting for the length of the gt and pm*/
+		{
 			revalidate();
 			label = new JLabel("Game Over. Ghost Wins");
-			label.setFont(new Font("Courier", Font.BOLD, 80)); // serif
+			label.setFont(new Font("Courier", Font.BOLD, 80));  
 			label.setForeground(Color.white);
 			add(label);
 
 			noMove = true;
 
-			JButton button = new JButton("Quit To Desktop");
+			JButton button = new JButton("QUIT");
 			button.setFont(new Font("Arial", Font.PLAIN, 40));
 			button.setPreferredSize(new Dimension(400, 100));
 			button.setBounds(500, 500, 100, 100);
@@ -445,8 +497,8 @@ public class PanelPac extends JPanel {
 			button.setBackground(Color.red);
 			button.setSize(new Dimension(100, 100));
 			add(button);
-			
-			JButton button10 = new JButton("Launcher");
+
+			JButton button10 = new JButton("LAUNCHER");
 			button10.setFont(new Font("Arial", Font.PLAIN, 40));
 			button10.setPreferredSize(new Dimension(400, 100));
 			button10.setBounds(500, 500, 100, 100);
@@ -476,8 +528,10 @@ public class PanelPac extends JPanel {
 
 	}
 
-	private class Listener13 implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
+	private class Listener13 implements ActionListener  /**This listener resets the location of pm and gt and jump the treat*/
+	{
+		public void actionPerformed(ActionEvent e)
+		{
 			pm.setX(500);
 			pm.setY(940);
 			gt.setX(520);
@@ -489,39 +543,44 @@ public class PanelPac extends JPanel {
 		}
 	}
 
-	public void getTheTreatg(Ghost g, treat t) {
+	public void getTheTreatg(Ghost g, treat t) /** */
+	{
 		double dist1 = distance(g.getX(), g.getY(), t.getX(), t.getY());
-		if (dist1 < (g.getLength() / 2) + 6) {
+		if (dist1 < (g.getLength() / 2) + 6)
+		{
 			t1.jump(getX(), getY());
 		}
 
 	}
 
-	public void getTheTreat(Pacman p, treat t) {
+	public void getTheTreat(Pacman p, treat t) /** */
+	{
 		double dist = distance(p.getX(), p.getY(), t.getX(), t.getY());
-		if (dist < (p.getLength() / 2) + 6) {
+		if (dist < (p.getLength() / 2) + 6)
+		{
 			score++;
 			t1.jump(getX(), getY());
-			
 
-			if (score < maxScore) {
+			if (score < maxScore)
+			{
 				removeAll();
 				labelScore = new JLabel("Score: " + score);
-				labelScore.setFont(new Font("Courier", Font.BOLD, 40)); // serif
+				labelScore.setFont(new Font("Courier", Font.BOLD, 40)); /** */
 				labelScore.setForeground(Color.GREEN);
 				labelScore.setBounds(400, 490, 300, 60);
 				add(labelScore);
 
-			} else {
+			} else
+			{
 				label = new JLabel("Game Over. Pac Wins");
-				label.setFont(new Font("Courier", Font.BOLD, 80)); // serif
+				label.setFont(new Font("Courier", Font.BOLD, 80)); /** */
 				label.setForeground(Color.white);
 				add(label);
 
-				score = 0; // reset score
+				score = 0; /** resets the score */
 				noMove = true;
 
-				JButton button = new JButton("Quit To Desktop");
+				JButton button = new JButton("QUIT");
 				button.setFont(new Font("Arial", Font.PLAIN, 40));
 				button.setPreferredSize(new Dimension(400, 100));
 				button.setBounds(500, 500, 100, 100);
@@ -531,7 +590,7 @@ public class PanelPac extends JPanel {
 				button.setBackground(Color.red);
 				button.setSize(new Dimension(100, 100));
 				add(button);
-				JButton button9 = new JButton("Launcher");
+				JButton button9 = new JButton("LAUNCHER");
 				button9.setFont(new Font("Arial", Font.PLAIN, 40));
 				button9.setPreferredSize(new Dimension(400, 100));
 				button9.setBounds(500, 500, 100, 100);

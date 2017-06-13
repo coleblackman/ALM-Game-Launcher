@@ -1,15 +1,17 @@
 import java.awt.*;
 
 //import javax.swing.*;
-public class Pacman extends Polkadot {
+public class Pacman extends Polkadot
+{
 
-	private double myX;
+	private double myX;//private fields
 	private double myY;
 	private double myWidth;
 	private double myLength;
 	private Color myColor;
 
-	public Pacman() {
+	public Pacman()
+	{
 		myX = 10;
 		myY = 10;
 		myWidth = 25;
@@ -17,43 +19,52 @@ public class Pacman extends Polkadot {
 
 	}
 
-	public Pacman(int x, int y, int d, Color c) {
+	public Pacman(int x, int y, int d, Color c) /**  creates a pacman object of any color at any position*/
+	{
 		myX = x;
 		myY = y;
 		myLength = d;
 		myWidth = d;
 		myColor = c;
 	}
-
-	public double getX() {
+	/** Accessor methods*/
+	public double getX()
+	{
 		return myX;
 	}
 
-	public double getY() {
+	public double getY()
+	{
 		return myY;
 	}
 
-	public double getLength() {
+	public double getLength()
+	{
 		return myLength;
 	}
 
-	public double getWidth() {
+	public double getWidth()
+	{
 		return myWidth;
 	}
-
-	public void setX(double x) {
+	/** modifier methods*/
+	public void setX(double x)
+	{
 		myX = x;
 	}
 
-	public void setY(double y) {
+	public void setY(double y)
+	{
 		myY = y;
 	}
 
-	public void setLength(double d) {
+	public void setLength(double d)
+	{
 		myLength = d;
 	}
 
-	public void setWidth(double d) {
+	public void setWidth(double d)
+	{
 		myWidth = d;
 	}
 }
